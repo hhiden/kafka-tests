@@ -27,6 +27,7 @@ public class TestProducer {
                 LongSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class.getName());
+        
         return new KafkaProducer<>(props);
     }
 
@@ -38,6 +39,7 @@ public class TestProducer {
                 final ProducerRecord<Long, String> record
                         = new ProducerRecord<>(TOPIC, index,
                                 "Hello Mom " + index);
+
                 RecordMetadata metadata = producer.send(record).get();
                 long elapsedTime = System.currentTimeMillis() - time;
                 System.out.printf("sent record(key=%s value=%s) "
