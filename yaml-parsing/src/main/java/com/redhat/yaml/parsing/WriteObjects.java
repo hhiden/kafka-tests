@@ -25,6 +25,9 @@ public class WriteObjects {
             
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File("/work/step.yml"), s1);
             
+            File inFile = new File("/work/step.yml");
+            StreamProcessingStep recreated = mapper.readValue(inFile, StreamProcessingStep.class);
+            System.out.println(recreated.getLabel());
         } catch (Exception e){
             e.printStackTrace();
         }
