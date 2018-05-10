@@ -16,6 +16,12 @@
             <artifactId>kafka-clients</artifactId>
             <version>1.0.0</version>
             <type>jar</type>
-        </dependency>    
+        </dependency>   
+        
+        <dependency>
+            <groupId>eu.infomas</groupId>
+            <artifactId>annotation-detector</artifactId>
+            <version>3.0.5</version>
+        </dependency>          
     </dependencies>
 </project>
