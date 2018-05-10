@@ -54,15 +54,17 @@ public class KafkaMessageHandler extends MessageHandler implements Runnable {
         this.handlerMethod = m;
         inputStreamName = ContainerUtils.resolve(config.configSource(), config.inputName());
         inputGroupName = config.inputGroupName();
-
+        logger.info("Using handler input stream: " + inputStreamName + "[" + inputGroupName + "]");
         if (config.outputType() == OutputType.TOPIC) {
             outputStreamPresent = true;
             outputStreamName = ContainerUtils.resolve(config.configSource(), config.outputName());
             outputClientId = config.outputClientId();
+            logger.info("Using hander output stream: " + outputStreamName);
         } else {
             outputStreamPresent = false;
             outputStreamName = "";
             outputClientId = "";
+            logger.info("Handler has no output stream requirement");
         }
     }
 
@@ -78,6 +80,7 @@ public class KafkaMessageHandler extends MessageHandler implements Runnable {
     }
     /** Create a Kafka consumer attached to a queue */
     private Consumer<Long, byte[]> createConsumer(String groupName, String topicName) {
+        logger.info("Creating Kafka consumer for Topic: " + topicName);
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, parent.getServerName() + ":" + parent.getServerPort());
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupName);
@@ -90,6 +93,7 @@ public class KafkaMessageHandler extends MessageHandler implements Runnable {
     
     /** Create a Kafka producer for a queue */
     private Producer<Long, byte[]> createProducer(String groupName) {
+        logger.info("Creating Kafka producer with ClientID: " + groupName);
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, parent.getServerName() + ":" + parent.getServerPort());
         props.put(ProducerConfig.CLIENT_ID_CONFIG, groupName);
@@ -103,6 +107,7 @@ public class KafkaMessageHandler extends MessageHandler implements Runnable {
      */
     @Override
     public void run() {
+        logger.info("Starting KafkaMessageHander.run");
         // Connect the input
         inputConsumer = createConsumer(inputGroupName, inputStreamName);
 
@@ -146,12 +151,5 @@ public class KafkaMessageHandler extends MessageHandler implements Runnable {
 
             inputConsumer.commitAsync();                
         }
-    }
-    
-    private void streamTest(){
-        Properties clientProps = new Properties();
-        clientProps.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, parent.getServerName() + ":" + parent.getServerPort());
-        AdminClient client = AdminClient.create(clientProps);
-        
     }
 }
