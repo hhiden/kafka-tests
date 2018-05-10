@@ -124,12 +124,16 @@ public class KafkaMessageHandler extends MessageHandler implements Runnable {
                         Object returnData = handlerMethod.invoke(handler, callData);
                         
                         // Push back to the stream
-                        byte[] returnByteData = ContainerUtils.serialize(returnData);
-                        
-                        ProducerRecord<Long, byte[]> outputRecord = new ProducerRecord<>(outputStreamName, System.nanoTime(), returnByteData);
+                        if(returnData!=null){
+                            byte[] returnByteData = ContainerUtils.serialize(returnData);
 
-                        RecordMetadata metadata = outputProducer.send(outputRecord).get();
-                        logger.info("Sent:" + metadata.toString());
+                            ProducerRecord<Long, byte[]> outputRecord = new ProducerRecord<>(outputStreamName, System.nanoTime(), returnByteData);
+
+                            RecordMetadata metadata = outputProducer.send(outputRecord).get();
+                            logger.info("Sent:" + metadata.toString());
+                        } else {
+                            logger.info("Processor did not create a message");
+                        }
                     } else {
                         // Ignore the output
                         handlerMethod.invoke(handler, callData);
