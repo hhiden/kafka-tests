@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
 public @interface MessageProcessor {
     SourceType configSource() default SourceType.ENVIRONMENT;
     String serverName() default "localhost";
-    int port() default 9902;
+    String port() default "9902";
 }

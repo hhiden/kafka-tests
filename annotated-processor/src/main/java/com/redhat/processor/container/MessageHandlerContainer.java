@@ -36,12 +36,12 @@ public class MessageHandlerContainer {
             if(annotations.length==1){
                 MessageProcessor mpa = (MessageProcessor)annotations[0];
                 serverName = ContainerUtils.resolve(mpa.configSource(), mpa.serverName());
-                serverPort = Integer.parseInt(ContainerUtils.resolve(mpa.configSource(), Integer.toString(mpa.port())));
+                serverPort = Integer.parseInt(ContainerUtils.resolve(mpa.configSource(), mpa.port()));
                 logger.info("Configured messaging service: " + serverName + ":" + serverPort);
                         
             } else {
                 serverName = "localhost";
-                serverPort = 9902;
+                serverPort = 9092;
                 logger.warning("Using defaults for messaging service");
             }
             
