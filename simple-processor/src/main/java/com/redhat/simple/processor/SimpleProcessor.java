@@ -6,13 +6,13 @@ import com.redhat.processor.annotations.OutputType;
 import com.redhat.processor.annotations.SourceType;
 
 /**
- * Process messagesz
+ * Process messages
  * @author hhiden
  */
 @MessageProcessor(
         configSource = SourceType.SPECIFIED,
         serverName = "localhost",
-        port = 9092)
+        port = "9092")
 public class SimpleProcessor {
     @HandleMessage(
             outputType = OutputType.TOPIC, 
@@ -21,7 +21,7 @@ public class SimpleProcessor {
             inputGroupName = "processor-group",
             outputClientId = "my-processor",
             configSource = SourceType.SPECIFIED)
-    public Object filterDate(Object message){
+    public String filterDate(String message){
         return message + "_filtered";
     }
 }
