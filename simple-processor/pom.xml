@@ -60,33 +60,7 @@
             </plugin>
 
 
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>fabric8-maven-plugin</artifactId>
-                <version>3.5.30</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>resource</goal>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <resources>
-                        <labels>
-                            <service>
-                                <expose>true</expose>
-                            </service>
-                        </labels>
-                        <env>
-                            <KAFKA_SERVICE_HOST>my-cluster-kafka</KAFKA_SERVICE_HOST>
-                            <KAFKA_SERVICE_PORT>9092</KAFKA_SERVICE_PORT>
-                            <KAFKA_TOPIC_SUCCESS>success.rate</KAFKA_TOPIC_SUCCESS>
-                        </env>
-                    </resources>
-                </configuration>
-            </plugin>
+
         </plugins>
     </build>
 </project>

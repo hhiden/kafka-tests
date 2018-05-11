@@ -14,6 +14,7 @@ import com.redhat.processor.StreamingContainerApplication;
 public class Runner {
      public static void main(String[] args){
         try {
+            System.setProperty("MY_PARAMETER", "55");
             StreamingContainerApplication app = new StreamingContainerApplication();
             app.start();
 
